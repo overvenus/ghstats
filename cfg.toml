@@ -7,22 +7,20 @@ feishu-webhook-token = "<TOKEN>"
 [[ptal.repos]]
 name = "TiCDC"
 pr-query = [
-# Open CDC PR in pingcap/ticdc and tikv/tikv repo.
+# Open CDC PR in pingcap/tiflow and tikv/tikv repo.
 # Excludes PRs that not ready.
 # Excludes PRs that ready to merge.
 # Excludes cherry-pick PRs.
 """
-repo:pingcap/ticdc type:pr state:open \
+repo:pingcap/tiflow -label:area/dm type:pr state:open base:master \
 draft:false -label:do-not-merge/work-in-progress -label:do-not-merge/hold \
 -label:status/LGT2 -label:status/can-merge \
--label:type/cherry-pick-for-release-5.0 -label:type/cherry-pick-for-release-4.0 \
 sort:created-desc
 """,
 """
-repo:tikv/tikv type:pr state:open label:component/CDC \
+repo:tikv/tikv type:pr state:open label:component/CDC base:master \
 draft:false -label:do-not-merge/work-in-progress -label:do-not-merge/hold \
 -label:status/LGT2 -label:status/can-merge \
--label:type/cherry-pick \
 sort:created-desc
 """]
 
@@ -34,10 +32,9 @@ pr-query = [
 # Excludes PRs that ready to merge.
 # Excludes cherry-pick PRs.
 """
-repo:pingcap/dm type:pr state:open \
+repo:pingcap/tiflow label:area/dm type:pr state:open base:master \
 draft:false -label:do-not-merge/work-in-progress -label:do-not-merge/hold -label:status/WIP \
 -label:status/LGT2 -label:status/can-merge \
--label:type/cherry-pick-for-release-2.0 -label:type/cherry-pick-for-release-1.0 \
 sort:created-desc
 """]
 
@@ -49,21 +46,20 @@ pr-query = [
 # Excludes PRs that ready to merge.
 # Excludes cherry-pick PRs.
 """
-repo:pingcap/br type:pr state:open \
+repo:pingcap/br type:pr state:open base:master \
 draft:false -label:do-not-merge/work-in-progress -label:do-not-merge/hold \
 -label:status/LGT2 -label:status/can-merge \
--label:type/cherry-pick-for-release-5.0 -label:type/cherry-pick-for-release-4.0 \
 sort:created-desc
 """,
 """
-repo:tikv/tikv type:pr state:open label:component/backup-restore \
+repo:tikv/tikv type:pr state:open label:component/backup-restore base:master \
 draft:false -label:do-not-merge/work-in-progress -label:do-not-merge/hold \
 -label:status/LGT2 -label:status/can-merge \
 -label:type/cherry-pick \
 sort:created-desc
 """,
 """
-repo:pingcap/tidb type:pr state:open label:component/lightning,label:component/br \
+repo:pingcap/tidb type:pr state:open label:component/lightning,label:component/br base:master \
 draft:false -label:do-not-merge/work-in-progress -label:do-not-merge/hold \
 -label:status/LGT2 -label:status/can-merge \
 sort:created-desc
@@ -85,7 +81,7 @@ block-users = [
   "ti-srebot",
   "codecov-commenter",
   "CLAassistant",
-  "hound[bot]"
+  "hound[bot]",
 ]
 block-labels = [
   "cherry-pick-approved",
@@ -99,9 +95,9 @@ feishu-webhook-token = "<TOKEN>"
 [[review.repos]]
 name = "TiCDC"
 pr-query = [
-# Open CDC PR and issues in pingcap/ticdc and tikv/tikv repo.
+# Open CDC PR and issues in pingcap/tiflow and tikv/tikv repo.
 """
-repo:pingcap/ticdc -label:area/dm
+repo:pingcap/tiflow -label:area/dm
 """,
 """
 repo:tikv/tikv label:component/CDC
@@ -124,10 +120,10 @@ repo:pingcap/tidb label:component/lightning,label:component/br
 [[review.repos]]
 name = "DM"
 pr-query = [
-# Open DM PR and issues in pingcap/dm and pingcap/ticdc repo.
+# Open DM PR and issues in pingcap/dm and pingcap/tiflow repo.
 """
 repo:pingcap/dm
 """,
 """
-repo:pingcap/ticdc label:area/dm
+repo:pingcap/tiflow label:area/dm
 """]
