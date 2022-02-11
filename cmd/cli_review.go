@@ -75,6 +75,14 @@ func reviewRange(cmd *cobra.Command, args []string, start, end time.Time) error 
 		return err
 	}
 	cfg := cfg1.Review
+	c := &reviewConfig{
+		lgtmComments:   cfg.LGTMComments,
+		blockComments:  cfg.BlockComments,
+		blockUsers:     cfg.BlockUsers,
+		blockLabels:    cfg.BlockLabels,
+		startTimestamp: start,
+		endTimestamp:   end,
+	}
 	ctx := context.Background()
 	client := github.NewClient(oauth2.NewClient(ctx, oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: cfg.GithubToken},
@@ -101,15 +109,6 @@ func reviewRange(cmd *cobra.Command, args []string, start, end time.Time) error 
 				}
 				projects[proj.Name] = append(projects[proj.Name], results...)
 			}
-		}
-
-		c := &reviewConfig{
-			lgtmComments:   cfg.LGTMComments,
-			blockComments:  cfg.BlockComments,
-			blockUsers:     cfg.BlockUsers,
-			blockLabels:    cfg.BlockLabels,
-			startTimestamp: start,
-			endTimestamp:   next,
 		}
 		log.Debug("projects issues: ", debug.PrettyFormat(projects))
 		for repo, results := range projects {
